@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.thinkgem.jeesite.common.config.Global;
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.act.service.ActModelService;
@@ -77,6 +78,11 @@ public class ActModelController extends BaseController {
 	@RequiresPermissions("act:model:edit")
 	@RequestMapping(value = "deploy")
 	public String deploy(String id, RedirectAttributes redirectAttributes) {
+		if(Global.isDemoMode()){
+			addMessage4DemoMode(redirectAttributes);
+			return "redirect:" + adminPath + "/act/process";
+		}
+		
 		String message = actModelService.deploy(id);
 		redirectAttributes.addFlashAttribute("message", message);
 		return "redirect:" + adminPath + "/act/process";
@@ -97,6 +103,11 @@ public class ActModelController extends BaseController {
 	@RequiresPermissions("act:model:edit")
 	@RequestMapping(value = "updateCategory")
 	public String updateCategory(String id, String category, RedirectAttributes redirectAttributes) {
+		if(Global.isDemoMode()){
+			addMessage4DemoMode(redirectAttributes);
+			return "redirect:" + adminPath + "/act/model";
+		}
+		
 		actModelService.updateCategory(id, category);
 		redirectAttributes.addFlashAttribute("message", "设置成功，模块ID=" + id);
 		return "redirect:" + adminPath + "/act/model";
@@ -111,6 +122,10 @@ public class ActModelController extends BaseController {
 	@RequiresPermissions("act:model:edit")
 	@RequestMapping(value = "delete")
 	public String delete(String id, RedirectAttributes redirectAttributes) {
+		if(Global.isDemoMode()){
+			addMessage4DemoMode(redirectAttributes);
+			return "redirect:" + adminPath + "/act/model";
+		}
 		actModelService.delete(id);
 		redirectAttributes.addFlashAttribute("message", "删除成功，模型ID=" + id);
 		return "redirect:" + adminPath + "/act/model";

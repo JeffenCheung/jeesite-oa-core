@@ -1,4 +1,4 @@
-# Pactera JeeSite 企业信息化快速开发平台 V1.2.10
+# Pactera JeeSite 企业信息化快速开发平台 V1.2.11-SNAPSHOT
 
 ## BPM流程引擎
 在线办公，oa-core是流程基础jar工程，里面是oa公共的代码，并无web page资源。
